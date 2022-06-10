@@ -1,6 +1,9 @@
 import axios from "axios";
 import { token } from "morgan";
 import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config';
+const conexion = require('../conexionbd');
+
+
 
 export const createOrder  = async (req,res) =>{
  try {
@@ -72,14 +75,66 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
 }  
 export const captureOrder =async (req,res) =>{
     //toma datos de los parametros de la url al capturar
-    const {token,PayerID} =  req.query
+    const {token,payerID} =  req.query
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
             username:PAYPAL_API_CLIENT,
             password:PAYPAL_API_SECRET,
         },
     });
-    console.log(response.data);
+    if (response.data.status=='COMPLETED'){
+        console.log('pago bien');
+        var todayDate = new Date();
+        const toDate = new Date();
+        let todayString = todayDate.toISOString();
+        toDate.setMonth(toDate.getMonth() + 1)
+        let toDateString = toDate.toISOString();
+        
+        let fechaHoyBDD =todayString.slice(0, 10);
+        let fechaHastaBDD = toDateString.slice(0, 10);
+        console.log("fecha de hoy:",fechaHoyBDD);
+        console.log("hasta: ",fechaHastaBDD);
+        conexion.query(`SELECT * from subscripcion`, function (err, result, fields) {
+            if (err) throw err;
+            else{
+                 console.log(result,"REGISTRADOS"); 
+                 console.log(response.data); 
+            }
+          });
+            //UPDATE
+          /* conexion.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='290191d9-cf88-4c7a-939e-0650884668b3'`, function (err, result, fields) {
+            if (err) throw err;
+            else{
+                 console.log(result,"REGISTRADOS");  
+            }
+          }); */
+
+                //guardar sub usuario
+         /*  conexion.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
+          VALUES ('290191d9-cf88-4c7a-939e-0650884668b3', '${todayDate}', '${toDate}',1)`, function (err, result, fields) {
+              if (err) throw err;
+              else{
+                   console.log(result,"REGISTRADOS");  
+              }
+            }); */
+            
+                //insertar id tipo_sub
+        /*   conexion.query(`INSERT INTO tipo_sub (id_tipo_sub, descripcion, precio)
+          VALUES (1, 'subscripcion', 10)`, function (err, result, fields) {
+              if (err) throw err;
+              else{
+                   console.log(result,"REGISTRADOS");  
+              }
+            }); */
+       
+          
+    }else{
+        
+        console.log(response.data); 
+        console.log(response.status);
+        console.log('no cae acá porque no pago bien po xoro');
+    }
+      
     return res.redirect('/payed.html');
 };
 
