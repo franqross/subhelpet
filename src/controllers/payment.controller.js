@@ -1,8 +1,7 @@
 import axios from "axios";
 import { token } from "morgan";
 import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js';
-const conexion = require('../conexionbd.js');
-
+import db from '../conexionbd.js';
 
 export const createOrder  = async (req,res) =>{
  try {
@@ -100,7 +99,7 @@ export const captureOrder =async (req,res) =>{
         let fechaHastaBDD = toDateString.slice(0, 10);
         console.log("fecha de hoy:",fechaHoyBDD);
         console.log("hasta: ",fechaHastaBDD);
-        conexion.query(`SELECT * from subscripcion`, function (err, result, fields) {
+        db.query(`SELECT * from subscripcion`, function (err, result, fields) {
             if (err) throw err;
             else{
                  console.log(result,"REGISTRADOS"); 
