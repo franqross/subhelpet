@@ -2,6 +2,9 @@ import express from 'express';
 import paymentRoutes from './routes/payment.routes.js';
 import morgan from 'morgan';
 import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 /* const conexion = require('../src/conexionbd'); */
 const app = express();
 import cors from 'cors';
