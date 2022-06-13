@@ -17,7 +17,8 @@
     "express": "^4.18.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
-    "path-to-regexp": "^6.2.1"
+    "path-to-regexp": "^6.2.1",
+    "type": "module"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
