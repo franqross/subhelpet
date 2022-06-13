@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import path from 'path';
 /* const conexion = require('../src/conexionbd'); */
 const app = express();
-var cors = require('cors');
+import cors from 'cors';
 //asdasdsad
 //datos agregados de crud
 const port = (process.env.PORT || 3000);
