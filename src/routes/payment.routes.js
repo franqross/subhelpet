@@ -1,5 +1,5 @@
 import {Router}from 'express';
-import {createOrder,captureOrder,cancelOrder} from '.payment.controller'
+import {createOrder,captureOrder,cancelOrder} from '.payment.controller.js'
 const router = Router();
 
 
