@@ -1,7 +1,7 @@
 import axios from "axios";
 import { token } from "morgan";
 import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js';
-import db from '../conexionbd.js';
+/* import db from '../conexionbd.js'; */
 
 export const createOrder  = async (req,res) =>{
  try {
