@@ -67,8 +67,12 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             password:PAYPAL_API_SECRET
         } */
     });
-     
+    
+    console.log("------------------------------------------");
+    console.log(response);
+    console.log("------------------------------------------");
     res.json(response.data);
+
  } catch (error) {
      return res.status(500).send('algo salio maluenda');
  }
@@ -76,6 +80,9 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
 export const captureOrder =async (req,res) =>{
     //toma datos de los parametros de la url al capturar
     const {token,payerID} =  req.query
+    console.log("------------------------------------------");
+    console.log(token);
+    console.log("------------------------------------------");
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
             username:PAYPAL_API_CLIENT,
