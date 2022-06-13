@@ -1,7 +1,7 @@
 import axios from "axios";
 import { token } from "morgan";
-import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config';
-const conexion = require('../conexionbd');
+import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js';
+const conexion = require('../conexionbd.js');
 
 
 
