@@ -21,7 +21,7 @@ db.connect(err => {
     }
     /* db.query("SELECT * FROM usuario", function (err, result, fields) {
         if (err) throw err;
-        //bla bla
+        //bla blaad sadadsa
     }) */
     ;
     
