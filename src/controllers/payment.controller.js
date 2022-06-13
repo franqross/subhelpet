@@ -60,7 +60,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
       }
     
     
-    
+    //probando
     //con Credenciales
     /*  auth:{
             username:PAYPAL_API_CLIENT,
