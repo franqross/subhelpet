@@ -2,7 +2,7 @@ import express from 'express';
 import paymentRoutes from './routes/payment.routes.js';
 import morgan from 'morgan';
 import path from 'path';
-const conexion = require('../src/conexionbd');
+/* const conexion = require('../src/conexionbd'); */
 const app = express();
 var cors = require('cors');
 //asdasdsad
