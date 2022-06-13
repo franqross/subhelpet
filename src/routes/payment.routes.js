@@ -6,8 +6,8 @@ const router = Router();
 //crear orden
 router.post('/create-order',createOrder);
 //capturando orden
-router.get('capture-order',captureOrder);
+router.get('/capture-order',captureOrder);
 //canceló orden
-router.get('cancel-order',cancelOrder);
+router.get('/cancel-order',cancelOrder);
 export default router;
 
