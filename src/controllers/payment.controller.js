@@ -103,7 +103,7 @@ export const captureOrder =async (req,res) =>{
         },
     });
     if (response.data.status=='COMPLETED'){
-        console.log(response.data.purchase_units[0]);
+        console.log(response.data.purchase_units[0].reference_id);
         console.log(token);
         var todayDate = new Date();
         const toDate = new Date();
