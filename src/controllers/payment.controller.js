@@ -40,7 +40,6 @@ export const createOrder  = async (req,res) =>{
         {
         headers:{
             "Content-Type": "application/x-www-form-urlencoded",
-            "PayPal-Request-ID":"666666666666666",
         },
         auth:{
             username:PAYPAL_API_CLIENT,
@@ -97,7 +96,7 @@ export const captureOrder =async (req,res) =>{
     const {token,payerID} =  req.query
     console.log("------------------------------------------");
     console.log(token);
-    console.log(req.query);
+    console.log("------------------------------------------");
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
             username:PAYPAL_API_CLIENT,
