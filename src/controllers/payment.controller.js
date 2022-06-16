@@ -94,7 +94,7 @@ export const captureOrder =async (req,res) =>{
     //toma datos de los parametros de la url al capturar
     const {token} =  req.query
     console.log("------------------------------------------");
-    console.log(res.data.reference_id);
+    console.log(token);
     console.log("------------------------------------------");
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
@@ -103,7 +103,7 @@ export const captureOrder =async (req,res) =>{
         },
     });
     if (response.data.status=='COMPLETED'){
-        console.log(reference_id);
+        console.log(response.data.reference_id);
         console.log(token);
         var todayDate = new Date();
         const toDate = new Date();
