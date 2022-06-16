@@ -10,6 +10,7 @@ export const createOrder  = async (req,res) =>{
         intent : 'CAPTURE',
         purchase_units:[
             {
+                reference_id: "5555555555555555555",
                 amount:{
                     currency_code:"USD",
                     value:"10.50"
@@ -91,7 +92,7 @@ export const captureOrder =async (req,res) =>{
     
     });
     //toma datos de los parametros de la url al capturar
-    const {token,payerID} =  req.query
+    const {token,reference_id} =  req.query
     console.log("------------------------------------------");
     console.log(token);
     console.log("------------------------------------------");
@@ -102,7 +103,7 @@ export const captureOrder =async (req,res) =>{
         },
     });
     if (response.data.status=='COMPLETED'){
-        console.log(req.query);
+        console.log(reference_id);
         console.log(token);
         var todayDate = new Date();
         const toDate = new Date();
