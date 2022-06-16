@@ -10,7 +10,7 @@ export const createOrder  = async (req,res) =>{
         intent : 'CAPTURE',
         purchase_units:[
             {
-                reference_id: "5555555555555555555",
+                reference_id: "555555345345",
                 amount:{
                     currency_code:"USD",
                     value:"10.50"
@@ -92,9 +92,9 @@ export const captureOrder =async (req,res) =>{
     
     });
     //toma datos de los parametros de la url al capturar
-    const {token,reference_id} =  req.query
+    const {token} =  req.query
     console.log("------------------------------------------");
-    console.log(token);
+    console.log(res.data.reference_id);
     console.log("------------------------------------------");
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
