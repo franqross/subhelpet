@@ -4,15 +4,17 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 /* import db from '../conexionbd.js'; */
 
 export const createOrder  = async (req,res) =>{
+    
  try {
     const order = {
         intent : 'CAPTURE',
         purchase_units:[
             {
                 amount:{
-                    currency_code:"USD",
-                    value:"10.50"
+                    currency_code:"CLP",
+                    value:"15000"
                 },
+                
                 description:"Subscripción mensual Helpet",
             }
         ],
@@ -23,6 +25,7 @@ export const createOrder  = async (req,res) =>{
             return_url:`${HOST}/capture-order`,
             cancel_url:`${HOST}/cancel-order`,
         }
+
     };
 
 
@@ -76,11 +79,25 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
  }
 }  
 export const captureOrder =async (req,res) =>{
+    const db = mysql.createConnection({
+        host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
+        port: "3306",
+        user: "admin",
+        password: "helpet-Adm127",
+        database: "helpetdb",
+        ssl:{
+            // cert:'..src/cert/us-east-1-bundle.pem',
+            // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
+            rejectUnauthorized: false
+        }
+    
+    });
     //toma datos de los parametros de la url al capturar
     const {token,payerID} =  req.query
     console.log("------------------------------------------");
     console.log(token);
     console.log("------------------------------------------");
+    console.log(req.query);
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
             username:PAYPAL_API_CLIENT,
@@ -99,13 +116,13 @@ export const captureOrder =async (req,res) =>{
         let fechaHastaBDD = toDateString.slice(0, 10);
         console.log("fecha de hoy:",fechaHoyBDD);
         console.log("hasta: ",fechaHastaBDD);
-        /* db.query(`SELECT * from subscripcion`, function (err, result, fields) {
+         /* db.query(`SELECT * from subscripcion`, function (err, result, fields) {
             if (err) throw err;
             else{
                  console.log(result,"REGISTRADOS"); 
                  console.log(response.data); 
             }
-          }); */
+          });  */
             //UPDATE
           /* conexion.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='290191d9-cf88-4c7a-939e-0650884668b3'`, function (err, result, fields) {
             if (err) throw err;
@@ -115,13 +132,13 @@ export const captureOrder =async (req,res) =>{
           }); */
 
                 //guardar sub usuario
-         /*  conexion.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
+           db.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
           VALUES ('290191d9-cf88-4c7a-939e-0650884668b3', '${todayDate}', '${toDate}',1)`, function (err, result, fields) {
               if (err) throw err;
               else{
-                   console.log(result,"REGISTRADOS");  
+                   console.log(result,"USUARIO REGISTRADO");  
               }
-            }); */
+            }); 
             
                 //insertar id tipo_sub
         /*   conexion.query(`INSERT INTO tipo_sub (id_tipo_sub, descripcion, precio)
