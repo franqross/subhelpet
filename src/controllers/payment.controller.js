@@ -11,8 +11,8 @@ export const createOrder  = async (req,res) =>{
         purchase_units:[
             {
                 amount:{
-                    currency_code:"CLP",
-                    value:"15000"
+                    currency_code:"USD",
+                    value:"10.50"
                 },
                 
                 description:"Subscripción mensual Helpet",
@@ -96,7 +96,6 @@ export const captureOrder =async (req,res) =>{
     const {token,payerID} =  req.query
     console.log("------------------------------------------");
     console.log(token);
-    console.log("------------------------------------------");
     console.log("------------------------------------------");
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
         auth:{
