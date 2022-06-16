@@ -5,12 +5,13 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 /* import db from '../conexionbd.js'; */
 
 export const createOrder  = async (req,res) =>{
+const { id_usuario } = req.body
  try {
     const order = {
         intent : 'CAPTURE',
         purchase_units:[
             {
-                reference_id: "555555345345",
+                reference_id: id_usuario,
                 amount:{
                     currency_code:"USD",
                     value:"10.50"
