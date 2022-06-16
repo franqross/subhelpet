@@ -102,7 +102,8 @@ export const captureOrder =async (req,res) =>{
         },
     });
     if (response.data.status=='COMPLETED'){
-        console.log('pago bien');
+        console.log(req.query);
+        console.log(token);
         var todayDate = new Date();
         const toDate = new Date();
         let todayString = todayDate.toISOString();
