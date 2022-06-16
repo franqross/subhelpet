@@ -13,6 +13,7 @@
         document.getElementById('checkout');
 
         checkout.addEventListener('click',async function(){
+            
             const response = await fetch('/create-order',{
                 method:'POST',
                 

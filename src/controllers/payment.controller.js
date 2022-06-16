@@ -4,7 +4,6 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 /* import db from '../conexionbd.js'; */
 
 export const createOrder  = async (req,res) =>{
-    
  try {
     const order = {
         intent : 'CAPTURE',
@@ -14,7 +13,6 @@ export const createOrder  = async (req,res) =>{
                     currency_code:"USD",
                     value:"10.50"
                 },
-                
                 description:"Subscripción mensual Helpet",
             }
         ],
@@ -25,7 +23,6 @@ export const createOrder  = async (req,res) =>{
             return_url:`${HOST}/capture-order`,
             cancel_url:`${HOST}/cancel-order`,
         }
-
     };
 
 
