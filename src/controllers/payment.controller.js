@@ -136,8 +136,8 @@ export const captureOrder =async (req,res) =>{
           }); */
 
                 //guardar sub usuario
-            db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
-          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idUsuarioPago}')`, function (err, result, fields) {
+            db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub)
+          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1)`, function (err, result, fields) {
               if (err) throw err;
               else{
                    console.log(result,"SUSCRIPCION GUARDADA, FALTA GUARDAR USUARIO");  
