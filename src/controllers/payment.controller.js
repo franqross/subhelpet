@@ -109,7 +109,7 @@ export const captureOrder =async (req,res) =>{
         console.log(response.data.id);
         console.log(response.data.purchase_units[0].reference_id);
         console.log(token);
-        let idUsuarioPago = response.data.purchase_units[0].reference_id;
+        let idTokenPago = response.data.id;
         var todayDate = new Date();
         const toDate = new Date();
         let todayString = todayDate.toISOString();
@@ -134,15 +134,15 @@ export const captureOrder =async (req,res) =>{
                  console.log(result,"REGISTRADOS");  
             }
           }); */
-
+          
                 //guardar sub usuario
-         /*    db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub)
-          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1)`, function (err, result, fields) {
+           db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscipcion)
+          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idTokenPago}')`, function (err, result, fields) {
               if (err) throw err;
               else{
                    console.log(result,"SUSCRIPCION GUARDADA, FALTA GUARDAR USUARIO");  
               }
-            });   */
+            });
             
                 //insertar id tipo_sub
         /*   conexion.query(`INSERT INTO tipo_sub (id_tipo_sub, descripcion, precio)
