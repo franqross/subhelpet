@@ -134,8 +134,8 @@ export const captureOrder =async (req,res) =>{
           }); */
 
                 //guardar sub usuario
-            db.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
-          VALUES ('290191d9-cf88-4c7a-939e-0650884668b3', '${todayDate}', '${toDate}',1)`, function (err, result, fields) {
+            db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub)
+          VALUES (${todayDate}', '${toDate}',1)`, function (err, result, fields) {
               if (err) throw err;
               else{
                    console.log(result,"Suscripcion insertada");  
