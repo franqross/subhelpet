@@ -90,6 +90,8 @@ export const captureOrder =async (req,res) =>{
             // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
             rejectUnauthorized: false
         }
+
+        //verificar el id del req antes de pasar el res
     
     });
     //toma datos de los parametros de la url al capturar
@@ -124,12 +126,12 @@ export const captureOrder =async (req,res) =>{
             }
           });  */
             //UPDATE
-          /* conexion.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='290191d9-cf88-4c7a-939e-0650884668b3'`, function (err, result, fields) {
-            if (err) throw err;
+            db.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='32f88192-4ff5-448c-a7f1-45f2fcc14f12'`, function (err, result, fields) {
+            if (err) throw err;   
             else{
                  console.log(result,"REGISTRADOS");  
             }
-          }); */
+          }); 
 
                 //guardar sub usuario
           /*  db.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
