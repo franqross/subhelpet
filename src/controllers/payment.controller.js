@@ -108,6 +108,7 @@ export const captureOrder =async (req,res) =>{
     if (response.data.status=='COMPLETED'){
         console.log(response.data.purchase_units[0].reference_id);
         console.log(token);
+        let idUsuarioPago = response.data.purchase_units[0].reference_id;
         var todayDate = new Date();
         const toDate = new Date();
         let todayString = todayDate.toISOString();
@@ -135,7 +136,7 @@ export const captureOrder =async (req,res) =>{
 
                 //guardar sub usuario
             db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
-          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,NULL)`, function (err, result, fields) {
+          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idUsuarioPago}')`, function (err, result, fields) {
               if (err) throw err;
               else{
                    console.log(result,"SUSCRIPCION GUARDADA, FALTA GUARDAR USUARIO");  
