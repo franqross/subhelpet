@@ -107,7 +107,7 @@ export const captureOrder =async (req,res) =>{
     });
     if (response.data.status=='COMPLETED'){
         console.log(response.data.id);
-        console.log(response.data.purchase_units[0].reference_id);
+        let idUsuario = response.data.purchase_units[0].reference_id;
         console.log(token);
         let idTokenPago = response.data.id;
         var todayDate = new Date();
@@ -137,12 +137,25 @@ export const captureOrder =async (req,res) =>{
           
                 //guardar sub usuario
            db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
-          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idTokenPago}')`, function (err, result, fields) {
+          VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idTokenPago}')`, function (err, result, fields)
+          
+          
+          {
               if (err) throw err;
               else{
                    console.log(result,"SUSCRIPCION GUARDADA, FALTA GUARDAR USUARIO");  
               }
             });
+            db.query(`INSERT INTO usuario (id_subscripcion) WHERE id_usuario='${idUsuario}'
+            VALUES ('${idTokenPago}')`, function (err, result, fields)
+            
+            
+            {
+                if (err) throw err;
+                else{
+                     console.log(result,"sub enganchada a usuario");  
+                }
+              });
             
                 //insertar id tipo_sub
         /*   conexion.query(`INSERT INTO tipo_sub (id_tipo_sub, descripcion, precio)
