@@ -146,14 +146,12 @@ export const captureOrder =async (req,res) =>{
                    console.log(result,"SUSCRIPCION GUARDADA, FALTA GUARDAR USUARIO");  
               }
             });
-            db.query(`INSERT INTO usuario (id_subscripcion) WHERE id_usuario='${idUsuario}'
-            VALUES ('${idTokenPago}')`, function (err, result, fields)
-            
-            
-            {
-                if (err) throw err;
+           
+              //////////////////////////
+              db.query(`UPDATE usuario SET id_subscripcion ='${idTokenPago}' WHERE id_usuario ='${idUsuario}'`, function (err, result, fields) {
+                if (err) throw err;   
                 else{
-                     console.log(result,"sub enganchada a usuario");  
+                     console.log(result,"enganchado usuario con sub");  
                 }
               });
             
