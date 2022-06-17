@@ -126,21 +126,21 @@ export const captureOrder =async (req,res) =>{
             }
           });  */
             //UPDATE
-            db.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='32f88192-4ff5-448c-a7f1-45f2fcc14f12'`, function (err, result, fields) {
+          /* conexion.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='290191d9-cf88-4c7a-939e-0650884668b3'`, function (err, result, fields) {
             if (err) throw err;   
             else{
                  console.log(result,"REGISTRADOS");  
             }
-          }); 
+          }); */
 
                 //guardar sub usuario
-          /*  db.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
+            db.query(`INSERT INTO subscripcion (id_usuario, f_desde, f_hasta,id_tipo_sub)
           VALUES ('290191d9-cf88-4c7a-939e-0650884668b3', '${todayDate}', '${toDate}',1)`, function (err, result, fields) {
               if (err) throw err;
               else{
-                   console.log(result,"USUARIO REGISTRADO");  
+                   console.log(result,"Suscripcion insertada");  
               }
-            });  */
+            });  
             
                 //insertar id tipo_sub
         /*   conexion.query(`INSERT INTO tipo_sub (id_tipo_sub, descripcion, precio)
