@@ -157,9 +157,9 @@ export const captureOrder =async (req,res) =>{
         console.log('no cae acá porque no pago bien po xoro');
     }
       
-    return res.redirect('/payed.html');
+    return res.redirect('http://localhost:4200/subscribe-success');
 };
 
 export const cancelOrder = (req,res) =>{
-    res.redirect('/');
+    res.redirect('http://localhost:4200/subscribe-error');
 }
