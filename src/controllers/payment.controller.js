@@ -120,22 +120,8 @@ export const captureOrder =async (req,res) =>{
         let fechaHastaBDD = toDateString.slice(0, 10);
         console.log("fecha de hoy:",fechaHoyBDD);
         console.log("hasta: ",fechaHastaBDD);
-         /* db.query(`SELECT * from subscripcion`, function (err, result, fields) {
-            if (err) throw err;
-            else{
-                 console.log(result,"REGISTRADOS"); 
-                 console.log(response.data); 
-            }
-          });  */
-            //UPDATE
-          /* conexion.query(`UPDATE subscripcion SET f_desde ='${fechaHoyBDD}',f_hasta='${fechaHastaBDD}' WHERE id_usuario ='290191d9-cf88-4c7a-939e-0650884668b3'`, function (err, result, fields) {
-            if (err) throw err;   
-            else{
-                 console.log(result,"REGISTRADOS");  
-            }
-          }); */
-          
-                //guardar sub usuario
+  
+         //guardar sub usuario
            db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
           VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idTokenPago}')`, function (err, result, fields)
           
@@ -153,18 +139,7 @@ export const captureOrder =async (req,res) =>{
                 else{
                      console.log(result,"enganchado usuario con sub");  
                 }
-              });
-            
-                //insertar id tipo_sub
-        /*   conexion.query(`INSERT INTO tipo_sub (id_tipo_sub, descripcion, precio)
-          VALUES (1, 'subscripcion', 10)`, function (err, result, fields) {
-              if (err) throw err;
-              else{
-                   console.log(result,"REGISTRADOS");  
-              }
-            }); */
-       
-          
+              });    
     }else{
         
         console.log(response.data); 
