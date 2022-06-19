@@ -90,6 +90,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
         if (err) throw err;
         else{
             if (typeof result[0]=='undefined' && result[0]) {
+                console.log("cae en undefined");
                 return res.json(response.data);
             }
                 let f_hastaUsuario = result[0].f_hasta;
