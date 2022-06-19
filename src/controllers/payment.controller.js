@@ -47,7 +47,7 @@ const { id_usuario } = req.body
         },
     }
 );
-    /* console.log(access_token);  */
+
 
 
 
@@ -68,6 +68,24 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             password:PAYPAL_API_SECRET
         } */
     });
+
+    const db = mysql.createConnection({
+        host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
+        port: "3306",
+        user: "admin",
+        password: "helpet-Adm127",
+        database: "helpetdb",
+        ssl:{
+            // cert:'..src/cert/us-east-1-bundle.pem',
+            // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
+            rejectUnauthorized: false
+        }
+
+        //verificar el id del req antes de pasar el res
+    
+    });
+
+
     
     console.log("------------------------------------------");
     console.log(response);
@@ -94,6 +112,13 @@ export const captureOrder =async (req,res) =>{
         //verificar el id del req antes de pasar el res
     
     });
+
+    db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion =${id_usuario}`, function (err, result, fields){
+              if (err) throw err;
+              else{
+                   console.log(result,"FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA");  
+              }
+            });
     //toma datos de los parametros de la url al capturar
     const {token} =  req.query
     console.log("------------------------------------------");
