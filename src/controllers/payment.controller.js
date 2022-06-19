@@ -81,7 +81,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
     //
     db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
               if (err) 
-              if (err) throw err;
+              return res.json(response.data);
               else{
                 console.log(result[0]);
                 //si encuentra data query se hace la validacion de f_hasta
