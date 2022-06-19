@@ -88,6 +88,8 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                     if(result[0]== null){
                         return res.json(response.data);
                     }else{
+                        let f_actual = new Date();
+                        let f_hastaUsuario = result[0].f_hasta;
                         if (f_hastaUsuario<f_actual) {
                             console.log('suscripcion temrinada, proceder a hacer pago denuevo');
                         }else{
