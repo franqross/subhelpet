@@ -84,8 +84,10 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
               return res.json(response.data);
               else{
                 //si encuentra data query se hace la validacion de f_hasta
-                    if(result[0].f_hasta!=null){
+                    if(result[0].f_hasta!='undefined'){
                         console.log("valido f_hasta");
+                    }else{
+                        console.log("f hasta indefinida");
                     }
                    console.log(result,"entra a la validacion.");  
                    console.log(result[0].f_hasta);
