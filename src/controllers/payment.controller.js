@@ -92,7 +92,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
         db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
             if (err) throw err;
             else{
-                if ( typeof result === 'object' &&!Array.isArray(result) && result !== null || typeof result[0] !== 'undefined' && result[0] ) {
+                if ( typeof result === 'object' &&!Array.isArray(result) && result !== null &&  typeof result[0] !== 'undefined' && result[0] ) {
                     let f_hastaUsuario = result[0].f_hasta;
                     let f_actual = new Date();
                     console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
