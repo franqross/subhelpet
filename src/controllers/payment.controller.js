@@ -85,6 +85,13 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
     
     });
 
+    //verificar sub usuario
+    db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion =${id_usuario}`, function (err, result, fields){
+        if (err) throw err;
+        else{
+             console.log(result,"FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA");  
+        }
+      });
 
     
     console.log("------------------------------------------");
@@ -113,12 +120,7 @@ export const captureOrder =async (req,res) =>{
     
     });
 
-    db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion =${id_usuario}`, function (err, result, fields){
-              if (err) throw err;
-              else{
-                   console.log(result,"FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA");  
-              }
-            });
+  
     //toma datos de los parametros de la url al capturar
     const {token} =  req.query
     console.log("------------------------------------------");
