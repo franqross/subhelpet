@@ -123,7 +123,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             return res.json(response.data);
         }
  } catch (error) {
-    
+    console.log(typeof result);
      return res.status(500).send('algo salio maluenda');
      
  }
