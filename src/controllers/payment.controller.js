@@ -117,10 +117,11 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             console.log("------------------------------------------");
             return res.json(response.data);
         } else {
-            
+            return res.json(response.data);
         }
  } catch (error) {
-     return res.status(500).send('algo salio maluenda');
+     /* return res.status(500).send('algo salio maluenda'); */
+     return res.json(response.data);
  }
 }  
 export const captureOrder =async (req,res) =>{
