@@ -44,13 +44,16 @@ const { id_usuario,id_sub } = req.body
         },
     }
 );
+
     //parametros por ruta
 const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
 
     //con TOKEN 
       headers:{
           Authorization:`Bearer ${access_token}`,
-      }  
+      }
+    
+    
     //probando
     //con Credenciales
     /*  auth:{
@@ -59,63 +62,33 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
         } */
     });
 
-        const db = mysql.createConnection({
-            host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
-            port: "3306",
-            user: "admin",
-            password: "helpet-Adm127",
-            database: "helpetdb",
-            ssl:{
-                // cert:'..src/cert/us-east-1-bundle.pem',
-                // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
-                rejectUnauthorized: false
-            }
+    const db = mysql.createConnection({
+        host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
+        port: "3306",
+        user: "admin",
+        password: "helpet-Adm127",
+        database: "helpetdb",
+        ssl:{
+            // cert:'..src/cert/us-east-1-bundle.pem',
+            // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
+            rejectUnauthorized: false
+        }
+    });
 
-        //verificar el id del req antes de pasar el res
+
+    //hacer query
+
+    //si falla la query por id a buscar, tipo de variable, etc, retorna el json con la data
+    db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
+              if (err) 
+              return res.json(response.data);
+              else{
+                //si enceuntra data query se hace la validacion de f_hasta
+                   console.log(result,"entra a la validacion.");  
+              }
+            });
     
-         });
-            /* let f_hastaUsuario = result[0].f_hasta;
-            let f_actual = new Date();
-            console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
-            console.log(f_hastaUsuario); 
-            console.log(f_actual); */
-            db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
-                if (err){
-                    console.log("cae aca");
-                    throw err;
-                } 
-
-          /*   if (typeof id_sub !== 'undefined' && query) {
-                //verificar sub usuario
-                db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
-                    if (err){
-                        console.log("cae aca");
-                        throw err;
-                    } 
-                else{
-                        console.log(typeof result[0]);
-                        //typeof result === 'object' &&!Array.isArray(result) && result !== null &&  result[0].f_hasta != null 
-                        if (typeof result === 'object' &&!Array.isArray(result)&& typeof result !== 'undefined'&&result &&result!= null ) {
-                            
-                        
-                        if (f_hastaUsuario<f_actual) {
-                            console.log('suscripcion temrinada, proceder a hacer pago denuevo');
-                        } else {
-                            console.log('suscripcion activa, retornar error.');
-                            return res.console.log('redireccionar aca');
-                        }  
-                        } else {
-                            console.log("no encontro id sub, realizando el pago.")
-                            return res.json(response.data);
-                        }
-                        
-                    }
-                    
-                });
-                    return res.json(response.data);
-                } else {
-                    return res.json(response.data);
-        } */
+  
  } catch (error) {return res.status(500).send('algo salio maluenda');}
 }  
 export const captureOrder =async (req,res) =>{
