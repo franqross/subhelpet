@@ -6,6 +6,7 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 
 export const createOrder  = async (req,res) =>{
 const { id_usuario,id_sub } = req.body
+console.log(typeof id_sub);
  try {
     const order = {
         intent : 'CAPTURE',
