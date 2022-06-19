@@ -99,6 +99,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                 console.log('suscripcion temrinada, proceder a hacer pago denuevo');
              } else {
                 console.log('suscripcion activa, retornar error.');
+                return res.console.log('redireccionar aca');
              }
         }
         
