@@ -90,11 +90,11 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
         if (err) throw err;
         else{
             let f_hastaUsuario = result[0].f_hasta
-            f_actual = new Date();
+            
              console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
              console.log(f_hastaUsuario); 
              console.log(f_actual); 
-             f_actual = new Date();
+             let f_actual = new Date();
              if (f_hastaUsuario<f_actual) {
                 
              } else {
