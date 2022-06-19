@@ -6,7 +6,7 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 
 export const createOrder  = async (req,res) =>{
 const { id_usuario,id_sub } = req.body
-console.log(typeof id_sub);
+
  try {
     const order = {
         intent : 'CAPTURE',
@@ -93,7 +93,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
         db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
             if (err) throw err;
             else{
-                console.log(typeof result);
+                console.log(typeof result[0]);
                 //typeof result === 'object' &&!Array.isArray(result) && result !== null &&  result[0].f_hasta != null 
                 if (typeof result === 'object' &&!Array.isArray(result)&& typeof result !== 'undefined'&&result &&result!= null ) {
                     let f_hastaUsuario = result[0].f_hasta;
