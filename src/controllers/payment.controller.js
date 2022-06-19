@@ -87,35 +87,38 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
      console.log("TIPO ID SUB");
      console.log(typeof id_sub);
      console.log("TIPO ID SUB");
-    //verificar sub usuario
-    db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
-        if (err) throw err;
-        else{
-            if ( typeof result === 'object' &&!Array.isArray(result) && result !== null) {
-                let f_hastaUsuario = result[0].f_hasta;
-                let f_actual = new Date();
-                console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
-                console.log(f_hastaUsuario); 
-                console.log(f_actual); 
-             
-             if (f_hastaUsuario<f_actual) {
-                console.log('suscripcion temrinada, proceder a hacer pago denuevo');
-             } else {
-                console.log('suscripcion activa, retornar error.');
-                return res.console.log('redireccionar aca');
-             }  
-            } else {
-                return res.json(response.data);
+     if (typeof id_sub !== 'undefined' && query) {
+        //verificar sub usuario
+        db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
+            if (err) throw err;
+            else{
+                if ( typeof result === 'object' &&!Array.isArray(result) && result !== null) {
+                    let f_hastaUsuario = result[0].f_hasta;
+                    let f_actual = new Date();
+                    console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
+                    console.log(f_hastaUsuario); 
+                    console.log(f_actual); 
+                
+                if (f_hastaUsuario<f_actual) {
+                    console.log('suscripcion temrinada, proceder a hacer pago denuevo');
+                } else {
+                    console.log('suscripcion activa, retornar error.');
+                    return res.console.log('redireccionar aca');
+                }  
+                } else {
+                    return res.json(response.data);
+                }
+                
             }
-               
+            
+        });
+            console.log("------------------------------------------");
+            console.log(response);
+            console.log("------------------------------------------");
+            return res.json(response.data);
+        } else {
+            
         }
-        
-      });
-    console.log("------------------------------------------");
-    console.log(response);
-    console.log("------------------------------------------");
-    return res.json(response.data);
-
  } catch (error) {
      return res.status(500).send('algo salio maluenda');
  }
