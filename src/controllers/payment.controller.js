@@ -7,7 +7,6 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 export const createOrder  = async (req,res) =>{
 const { id_usuario,id_sub } = req.body
  try {
-    
     const order = {
         intent : 'CAPTURE',
         purchase_units:[
@@ -52,7 +51,16 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
       headers:{
           Authorization:`Bearer ${access_token}`,
       }
-      const db = mysql.createConnection({
+    
+    
+    //probando
+    //con Credenciales
+    /*  auth:{
+            username:PAYPAL_API_CLIENT,
+            password:PAYPAL_API_SECRET
+        } */
+    });
+    const db = mysql.createConnection({
         host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
         port: "3306",
         user: "admin",
@@ -89,16 +97,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                         }
                     }  
               }
-            }),
-    
-    
-    //probando
-    //con Credenciales
-    /*  auth:{
-            username:PAYPAL_API_CLIENT,
-            password:PAYPAL_API_SECRET
-        } */
-    });
+            });
 
  } catch (error) {return res.status(500).send('algo salio maluenda');}
 }  
