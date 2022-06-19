@@ -92,18 +92,14 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                         let f_hastaUsuario = result[0].f_hasta;
                         if (f_hastaUsuario<f_actual) {
                             console.log('suscripcion terminada, proceder a hacer pago denuevo');
-                        }else{
-                            
+                            return res.json(response.data);
+                        }else{            
                             console.log('suscripción vigente, no redireccionar.');
-                            return res.redirect('http://google.com');
+                            return res.redirect('localhost:4200');
                         }
-                    }
-                   
-                   
+                    }  
               }
             });
-    
-  
  } catch (error) {return res.status(500).send('algo salio maluenda');}
 }  
 export const captureOrder =async (req,res) =>{
