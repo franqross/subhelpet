@@ -94,7 +94,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             else{
                 console.log(typeof result);
                 //typeof result === 'object' &&!Array.isArray(result) && result !== null &&  result[0].f_hasta != null 
-                if (typeof result === 'object' &&!Array.isArray(result) ) {
+                if (typeof result === 'object' &&!Array.isArray(result)&& typeof result !== 'undefined' ) {
                     let f_hastaUsuario = result[0].f_hasta;
                     let f_actual = new Date();
                     console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
