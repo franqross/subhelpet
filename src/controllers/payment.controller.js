@@ -1,7 +1,7 @@
 import axios from "axios";
 import { token } from "morgan";
 import mysql from "mysql";
-const conexion = require('../conexionbd.js');
+import db  from "../conexionbd.js";
 import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js';
 /* import db from '../conexionbd.js'; */
 export const createOrder  = async (req,res) =>{
@@ -110,7 +110,7 @@ export const captureOrder =async (req,res) =>{
         console.log("hasta: ",fechaHastaBDD);
   
          //guardar sub usuario
-        conexion.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
+        db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
           VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idTokenPago}')`, function (err, result, fields){
               if (err) throw err;
               else{
@@ -119,7 +119,7 @@ export const captureOrder =async (req,res) =>{
             });
            
               //////////////////////////
-        conexion.query(`UPDATE usuario SET id_subscripcion ='${idTokenPago}' WHERE id_usuario ='${idUsuario}'`, function (err, result, fields) {
+        db.query(`UPDATE usuario SET id_subscripcion ='${idTokenPago}' WHERE id_usuario ='${idUsuario}'`, function (err, result, fields) {
                if (err) throw err;   
                 else{
                      console.log(result,"enganchado usuario con sub");  
