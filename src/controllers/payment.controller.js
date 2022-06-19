@@ -91,7 +91,10 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
      if (typeof id_sub !== 'undefined' && query) {
         //verificar sub usuario
         db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
-            if (err) throw err;
+            if (err){
+                console.log("cae aca");
+                throw err;
+            } 
             else{
                 console.log(typeof result[0]);
                 //typeof result === 'object' &&!Array.isArray(result) && result !== null &&  result[0].f_hasta != null 
