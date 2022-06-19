@@ -93,7 +93,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             if (err) throw err;
             else{
                 
-                if ( typeof result === 'object' &&!Array.isArray(result) && result !== null &&  typeof result[0].f_hasta !== 'undefined' && result[0].f_hasta ) {
+                if ( typeof result === 'object' &&!Array.isArray(result) && result !== null &&  result[0].f_hasta != null ) {
                     let f_hastaUsuario = result[0].f_hasta;
                     let f_actual = new Date();
                     console.log("FECHA HASTA DE SUSCRIPCION USUARIO QUE PAGA"); 
@@ -122,7 +122,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             return res.json(response.data);
         }
  } catch (error) {
-    console.log(typeof result[0].f_hasta);
+    
      return res.status(500).send('algo salio maluenda');
      
  }
