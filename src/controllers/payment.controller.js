@@ -1,11 +1,12 @@
 import axios from "axios";
 import { token } from "morgan";
 import mysql from "mysql";
+const conexion = require('../conexionbd.js');
 import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js';
 /* import db from '../conexionbd.js'; */
-
 export const createOrder  = async (req,res) =>{
 const { id_usuario } = req.body
+
  try {
     const order = {
         intent : 'CAPTURE',
@@ -27,7 +28,7 @@ const { id_usuario } = req.body
             cancel_url:`${HOST}/cancel-order`,
         }
     };
-
+    
 
 
 
@@ -68,32 +69,18 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             password:PAYPAL_API_SECRET
         } */
     });
-    
+
     console.log("------------------------------------------");
     console.log(response);
     console.log("------------------------------------------");
-    res.json(response.data);
+    return res.json(response.data);
 
  } catch (error) {
      return res.status(500).send('algo salio maluenda');
  }
 }  
 export const captureOrder =async (req,res) =>{
-    const db = mysql.createConnection({
-        host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
-        port: "3306",
-        user: "admin",
-        password: "helpet-Adm127",
-        database: "helpetdb",
-        ssl:{
-            // cert:'..src/cert/us-east-1-bundle.pem',
-            // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
-            rejectUnauthorized: false
-        }
 
-        //verificar el id del req antes de pasar el res
-    
-    });
     //toma datos de los parametros de la url al capturar
     const {token} =  req.query
     console.log("------------------------------------------");
@@ -123,7 +110,7 @@ export const captureOrder =async (req,res) =>{
         console.log("hasta: ",fechaHastaBDD);
   
          //guardar sub usuario
-        db.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
+        conexion.query(`INSERT INTO subscripcion (f_desde, f_hasta,id_tipo_sub,id_subscripcion)
           VALUES ('${fechaHoyBDD}','${fechaHastaBDD}',1,'${idTokenPago}')`, function (err, result, fields){
               if (err) throw err;
               else{
@@ -132,7 +119,7 @@ export const captureOrder =async (req,res) =>{
             });
            
               //////////////////////////
-         db.query(`UPDATE usuario SET id_subscripcion ='${idTokenPago}' WHERE id_usuario ='${idUsuario}'`, function (err, result, fields) {
+        conexion.query(`UPDATE usuario SET id_subscripcion ='${idTokenPago}' WHERE id_usuario ='${idUsuario}'`, function (err, result, fields) {
                if (err) throw err;   
                 else{
                      console.log(result,"enganchado usuario con sub");  
