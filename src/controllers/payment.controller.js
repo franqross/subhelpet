@@ -7,6 +7,44 @@ import {PAYPAL_API,PAYPAL_API_CLIENT,PAYPAL_API_SECRET,HOST} from '../config.js'
 export const createOrder  = async (req,res) =>{
 const { id_usuario,id_sub } = req.body
 
+const db = mysql.createConnection({
+    host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
+    port: "3306",
+    user: "admin",
+    password: "helpet-Adm127",
+    database: "helpetdb",
+    ssl:{
+        // cert:'..src/cert/us-east-1-bundle.pem',
+        // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
+        rejectUnauthorized: false
+    }
+});
+
+
+//hacer query
+//si  se pasa o no se pasa parametros result será objeto 
+//
+db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
+          if (err) 
+          return res.json(response.data);
+          else{
+            console.log(result[0]);
+            //si encuentra data query se hace la validacion de f_hasta
+                if(result[0]== null){
+                    return res.json(response.data);
+                }else{
+                    let f_actual = new Date();
+                    let f_hastaUsuario = result[0].f_hasta;
+                    if (f_hastaUsuario<f_actual) {
+                        console.log('suscripcion terminada, proceder a hacer pago denuevo');
+                        return res.json(response.data);
+                    }else{            
+                        console.log('suscripción vigente, no redireccionar.');
+                        return res.redirect('localhost:4200');
+                    }
+                }  
+          }
+        });
  try {
     const order = {
         intent : 'CAPTURE',
@@ -62,44 +100,6 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
         } */
     });
 
-    const db = mysql.createConnection({
-        host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
-        port: "3306",
-        user: "admin",
-        password: "helpet-Adm127",
-        database: "helpetdb",
-        ssl:{
-            // cert:'..src/cert/us-east-1-bundle.pem',
-            // ca: fs.readFileSync(__dirname + '../cert/us-east-1-bundle.pem')
-            rejectUnauthorized: false
-        }
-    });
-
-
-    //hacer query
-    //si  se pasa o no se pasa parametros result será objeto 
-    //
-    db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
-              if (err) 
-              return res.json(response.data);
-              else{
-                console.log(result[0]);
-                //si encuentra data query se hace la validacion de f_hasta
-                    if(result[0]== null){
-                        return res.json(response.data);
-                    }else{
-                        let f_actual = new Date();
-                        let f_hastaUsuario = result[0].f_hasta;
-                        if (f_hastaUsuario<f_actual) {
-                            console.log('suscripcion terminada, proceder a hacer pago denuevo');
-                            return res.json(response.data);
-                        }else{            
-                            console.log('suscripción vigente, no redireccionar.');
-                            return res.redirect('localhost:4200');
-                        }
-                    }  
-              }
-            });
  } catch (error) {return res.status(500).send('algo salio maluenda');}
 }  
 export const captureOrder =async (req,res) =>{
