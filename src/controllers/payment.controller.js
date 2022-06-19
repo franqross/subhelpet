@@ -95,7 +95,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                             return res.json(response.data);
                         }else{            
                             console.log('suscripción vigente, no redireccionar.');
-                            return res.redirect('localhost:4200');
+                            return redirect('localhost:4200');
                         }
                     }  
               }
