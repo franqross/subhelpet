@@ -93,7 +93,9 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                         if (f_hastaUsuario<f_actual) {
                             console.log('suscripcion terminada, proceder a hacer pago denuevo');
                         }else{
+                            
                             console.log('suscripción vigente, no redireccionar.');
+                            return res.redirect('http://google.com');
                         }
                     }
                    
