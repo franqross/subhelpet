@@ -86,9 +86,13 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
                 console.log(result[0]);
                 //si encuentra data query se hace la validacion de f_hasta
                     if(result[0]== null){
-                        console.log("es null ");
+                        return res.json(response.data);
                     }else{
-                        console.log("no es null");
+                        if (f_hastaUsuario<f_actual) {
+                            console.log('suscripcion temrinada, proceder a hacer pago denuevo');
+                        }else{
+                            return res.json(response.data);
+                        }
                     }
                    
                    
