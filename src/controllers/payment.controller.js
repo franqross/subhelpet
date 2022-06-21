@@ -15,7 +15,7 @@ const { id_usuario,id_sub } = req.body
                 reference_id: id_usuario,
                 amount:{
                     currency_code:"USD",
-                    value:"10.00"
+                    value:"10"
                 },
                 description:"Subscripción mensual Helpet",
             }
