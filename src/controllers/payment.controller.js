@@ -15,7 +15,7 @@ const { id_usuario,id_sub } = req.body
                 reference_id: id_usuario,
                 amount:{
                     currency_code:"USD",
-                    value:"10"
+                    value:"10.00"
                 },
                 description:"Subscripción mensual Helpet",
             }
@@ -154,7 +154,7 @@ export const captureOrder =async (req,res) =>{
               });
               //guardar transascción log
         db.query(`INSERT INTO transacciones (id_transaccion, f_desde,f_hasta,monto)
-        VALUES ('${idTokenPago}','${fechaHoyBDD}','${fechaHastaBDD}',10.5)`, function (err, result, fields){
+        VALUES ('${idTokenPago}','${fechaHoyBDD}','${fechaHastaBDD}',10)`, function (err, result, fields){
             if (err) throw err;
             else{
                 console.log(result,"registro transacción");  
