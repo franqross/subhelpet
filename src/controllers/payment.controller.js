@@ -14,8 +14,8 @@ const { id_usuario,id_sub } = req.body
             {
                 reference_id: id_usuario,
                 amount:{
-                    currency_code:"USD",
-                    value:"10.50"
+                    currency_code:"CLP",
+                    value:"10000"
                 },
                 description:"Subscripción mensual Helpet",
             }
@@ -47,20 +47,10 @@ const { id_usuario,id_sub } = req.body
 
     //parametros por ruta
 const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
-
     //con TOKEN 
       headers:{
           Authorization:`Bearer ${access_token}`,
-      }
-    
-    
-    //probando
-    //con Credenciales
-    /*  auth:{
-            username:PAYPAL_API_CLIENT,
-            password:PAYPAL_API_SECRET
-        } */
-    });
+      }});
     const db = mysql.createConnection({
         host: "database-2.cqixht8znhwm.us-east-1.rds.amazonaws.com",
         port: "3306",
@@ -73,9 +63,7 @@ const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`,order,{
             rejectUnauthorized: false
         }
     });
-    
-    
-    //hacer query
+     //hacer query
     //si  se pasa o no se pasa parametros result será objeto 
     //
     db.query(`SELECT f_hasta FROM subscripcion WHERE id_subscripcion ='${id_sub}'`, function (err, result, fields){
