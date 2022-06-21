@@ -153,8 +153,8 @@ export const captureOrder =async (req,res) =>{
                 }
               });
               //guardar transascción log
-        db.query(`INSERT INTO transacciones (id_transaccion, f_desde,f_hasta,monto)
-        VALUES ('${idTokenPago}','${fechaHoyBDD}','${fechaHastaBDD}',10)`, function (err, result, fields){
+        db.query(`INSERT INTO transacciones (id_usuario,id_transaccion, f_desde,f_hasta,monto)
+        VALUES ('${idUsuario}','${idTokenPago}','${fechaHoyBDD}','${fechaHastaBDD}',10)`, function (err, result, fields){
             if (err) throw err;
             else{
                 console.log(result,"registro transacción");  
